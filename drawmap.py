@@ -17,12 +17,29 @@ america = pygmaps.maps(39.456334, -96.201513, 5)
 #       utah.draw('mapOfUtah.html')
 #
 def addCoordinates(map_obj, coordinates, color = "#FF0000"):
+    error_count = 0
     for coord in coordinates:
+
         if 'text' in coord.keys():
-            text = coord['text']
+            try:
+                text = str(coord['text'])
+                text = text.replace('"', '\'')
+                text = "<br>".join(text.splitlines())
+            except UnicodeEncodeError:
+                error_count += 1
+                text = ""
         else:
             text = ""
-        map_obj.addpoint(coord['x'], coord['y'], color=color, title = text)
+
+        # Plot the point on the map
+        # Notice the coordinates are swapped. This is on purpose because google maps
+        #    expects them opposite of how twitter gives them
+        map_obj.addpoint(coord['y'], coord['x'], color=color, title = text)
+
+    if error_count:
+        print "Unicode Error count:", error_count
+
+    return map_obj
 
 # Save a map to an html format for display
 def saveMap(map_obj, output_fh = "map.html"):
