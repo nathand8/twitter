@@ -1,9 +1,8 @@
 import pygmaps
 
-utah.draw('test.html')
-
 # Default maps
 utah = pygmaps.maps(39.384507, -111.574680, 7)
+america = pygmaps.maps(39.456334, -96.201513, 5)
 
 # Coordinates should be in this format:
 #       coord = {
