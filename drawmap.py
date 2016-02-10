@@ -1,18 +1,30 @@
 import pygmaps
 
-utah = pygmaps.maps(39.384507, -111.574680, 7)
-
-fh = open('tweets_and_locations.txt', 'r')
-#fh = open('small.txt', 'r')
-for x in fh.readlines():
-    try:
-        c1 = x[1: x.index(',')]
-        c2 = x[x.index(',') + 1: x.index(']')]
-        m = x[x.index(']') + 3: len(x) - 2]
-        m.replace('\n', ' ')
-        utah.addpoint(float(c1), float(c2), color = '#FF0000', title = m)
-    except:
-        print x
-
 utah.draw('test.html')
 
+# Default maps
+utah = pygmaps.maps(39.384507, -111.574680, 7)
+
+# Coordinates should be in this format:
+#       coord = {
+#           'x': 39.12324,
+#           'y': -111.573231,
+#           'text': "I'm here in the grand canyon..." (optional)
+#       }
+#
+# The map object should be created from pygmaps library:
+#       utah = pygmaps.maps(39.384507, -111.574680, 7)
+#       addCoordinates(utah, coordinates)
+#       utah.draw('mapOfUtah.html')
+#
+def addCoordinates(map_obj, coordinates, color = "#FF0000"):
+    for coord in coordinates:
+        if 'text' in coord.keys():
+            text = coord['text']
+        else:
+            text = ""
+        map_obj.addpoint(coord['x'], coord['y'], color=color, title = text)
+
+# Save a map to an html format for display
+def saveMap(map_obj, output_fh = "map.html"):
+    map_obj.draw(output_fh)
