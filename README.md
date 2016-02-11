@@ -12,3 +12,17 @@ Use tweet_util to parse tweets out of a file and loop through them
 [-86.363963299999995, 43.608619400000002]
 etc..
 ```
+
+Use tweetmap.py to put coordinates on a map
+```
+nathand8@SuperComputer ~ $ python twitter/tweetmap.py Twitter/america.json 
+Input file: Twitter/america.json
+Output file: map.html
+Parsing tweets...
+======= For file: Twitter/america.json =======
+Total tweets: 2255 (100.000%)
+Place IDs: 2243 (99.468%)
+User Location: 1701 (75.432%)
+Exact coords: 345 (15.299%)
+Unicode Error count: 84 (text for these tweets will be lost)
+```

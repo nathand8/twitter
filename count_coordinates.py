@@ -2,7 +2,10 @@ import tweet_util
 
 
 def processCountsForFile(filename):
-    tweets = tweet_util.parseFile(filename)
+    print "======= For file:", filename, "======="
+    processCountsForTweets(tweet_util.parseFile(filename))
+
+def processCountsForTweets(tweets):
     exact_coord_ct = 0
     user_loc_ct = 0
     place_id_ct = 0
@@ -16,7 +19,6 @@ def processCountsForFile(filename):
         if ('place' in tweet and tweet['place'] and 'id' in tweet['place'] and tweet['place']['id']):
             place_id_ct += 1
 
-    print "======= For file:", filename, "======="
     print "Total tweets:", total_tweets_ct, "(%.3f%%)" % (float(total_tweets_ct)/float(total_tweets_ct)*100)
     print "Place IDs:", place_id_ct, "(%.3f%%)" % (float(place_id_ct)/float(total_tweets_ct)*100)
     print "User Location:", user_loc_ct, "(%.3f%%)" % (float(user_loc_ct)/float(total_tweets_ct)*100)
