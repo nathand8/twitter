@@ -45,9 +45,33 @@ def addCoordinates(map_obj, coordinates, color = "#FF0000"):
 
     return map_obj
 
+
 # Save a map to an html format for display
 def saveMap(map_obj, output_fh = "map.html"):
     map_obj.draw(output_fh)
+
+
+# Helper function to find the best location for a tweet
+# Returns a coordinate data structure (see above)
+def bestLocation(tweet):
+
+    # Exact coordinates
+    if tweet.get('coordinates') and tweet.get('coordinates').get('coordinates'):
+        tuple = tweet['coordinates']['coordinates']
+
+    # Relative coordinates by place
+    elif tweet.get('place'):
+        tuple = tweet['place']['bounding_box']['coordinates'][0][0]
+
+    # We have no coordinates
+    else:
+        return None
+
+    return {
+        'x':tuple[0],
+        'y':tuple[1],
+        'text':tweet.get('text')}
+
 
 def mapFile(tweets_filename, map_filename = "map.html", map = america):
     print "Parsing tweets..."
@@ -56,12 +80,9 @@ def mapFile(tweets_filename, map_filename = "map.html", map = america):
     processCountsForTweets(tweets)
     coordinates = []
     for t in tweets:
-        if 'coordinates' in t and t['coordinates']:
-            coordinates.append({
-                'x':t['coordinates']['coordinates'][0],
-                'y':t['coordinates']['coordinates'][1],
-                'text':t['text']
-                })
+        coord = bestLocation(t)
+        if coord:
+            coordinates.append(coord)
 
     map = addCoordinates(map, coordinates)
     saveMap(map, map_filename)
