@@ -25,13 +25,9 @@ def addCoordinates(map_obj, coordinates, color = "#FF0000"):
     for coord in coordinates:
 
         if 'text' in coord.keys():
-            try:
-                text = str(coord['text'])
-                text = text.replace('"', '\'')
-                text = "<br>".join(text.splitlines())
-            except UnicodeEncodeError:
-                error_count += 1
-                text = "--Unicode Encoding Error--"
+            text = str(coord['text'].encode('utf8'))
+            text = text.replace('"', '\'')
+            text = "<br>".join(text.splitlines())
         else:
             text = "--Undefined--"
 
