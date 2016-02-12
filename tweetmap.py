@@ -7,6 +7,7 @@ import sys
 # Default maps
 utah = pygmaps.maps(39.384507, -111.574680, 7)
 america = pygmaps.maps(39.456334, -96.201513, 5)
+# America Box for curl command: -132.800716,24.791677,-67.028126,48.859042
 
 # Coordinates should be in this format:
 #       coord = {
