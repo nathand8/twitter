@@ -24,8 +24,8 @@ def addCoordinates(map_obj, coordinates, color = "#FF0000"):
     error_count = 0
     for coord in coordinates:
 
-        if 'text' in coord.keys():
-            text = str(coord['text'].encode('utf8'))
+        text = extractText(coord)
+        if text:
             text = text.replace('"', '\'')
             text = "<br>".join(text.splitlines())
         else:
@@ -66,7 +66,7 @@ def bestLocation(tweet):
     return {
         'x':tuple[0],
         'y':tuple[1],
-        'text':tweet.get('text')}
+        'text':(tweet.get('text') + u' -' + tweet.get('user').get('screen_name'))}
 
 
 def mapFile(tweets_filename, map_filename = "map.html", map = america):
