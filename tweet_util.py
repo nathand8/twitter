@@ -4,9 +4,9 @@ import bz2
 
 # Get a list of all the absolute paths to files full of twitter data
 #base_folder = '/fslhome/seanlane/Twitter/' # Base Folder
-base_folder = '/fslhome/nathand8/Twitter/' # Base Folder
-tweet_filenames = [os.path.join(base_folder, each) for each in os.listdir(base_folder) if each.endswith('.json')]
-tweet_filenames.sort() # Make sure they're in order
+#base_folder = '/fslhome/nathand8/Twitter/' # Base Folder
+#tweet_filenames = [os.path.join(base_folder, each) for each in os.listdir(base_folder) if each.endswith('.json')]
+#tweet_filenames.sort() # Make sure they're in order
 # To use these, import tweet_util.tweet_filenames
 
 
